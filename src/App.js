@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import Web3 from "web3";
 import Wallet from "./Wallet.json";
 import { ethers }  from "ethers"
 function App() {
@@ -8,16 +7,18 @@ function App() {
   const [totalBalance, setTotalBalance] = useState(0);
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
-  const [contractAddress, setContractAddress] = useState("");
+  const [web3] = useState(null);
+  // eslint-disable-next-line no-empty-pattern
+  const [] = useState(null);
+  // eslint-disable-next-line no-empty-pattern
+  const [] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const WalletAddress = "0xca548fbB789bC07628D63273E4B71d7496595Ba1";
   //const acontract = new web3.eth.Contract(Wallet.abi, WalletAddress,);
   
   const daiAddress = "0xca548fbB789bC07628D63273E4B71d7496595Ba1";
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  const signer = provider.getSigner()
 
     const daiAbi = Wallet.abi;
 // The Contract object
@@ -91,16 +92,6 @@ const daiContract = new ethers.Contract(daiAddress, daiAbi, provider);
     setAmount("");
   };
 
-  const getBalance = async () => {
-    if (daiContract) {
-      const balance = await daiContract.balanceOf(daiContract.address).call();
-      setBalance(balance);
-      const contractAddress = daiContract.address;
-      setContractAddress(contractAddress);
-    }
-    setMessage("");
-    setAmount("");
-  };
 
   return (
     <div className="App">
