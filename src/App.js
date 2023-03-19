@@ -37,62 +37,22 @@ const daiContract = new ethers.Contract(daiAddress, daiAbi, provider);
         }
       }
     }
-
-
-
-/*   useEffect(() => {
-    const loadWeb3 = async () => {
-      if (window.ethereum) {
-        const web3 = new Web3(window.ethereum);
-        try {
-          // Request account access if needed
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-          setWeb3(web3);
-        } catch (error) {
-          console.error('User denied account access', error);
-        }
+    const handleWithdrawal = async (e) => {
+      e.preventDefault();
+      if (amount === "") {
+        setMessage("Please enter an amount");
+        return;
+      }
+      const amountInWei = ethers.utils.parseEther(amount);
+      if (balance >= amount) {
+        await daiContract.withdraw(amountInWei);
+        setBalance((prevBalance) => prevBalance - Number(amount));
+        setMessage("Withdrawal successful!");
       } else {
-        console.log('No web3 provider detected. You should consider using MetaMask!');
+        setMessage("Insufficient balance!");
       }
-    };
-  
-    loadWeb3();
-  }, []); */
-  
-
-/*   useEffect(() => {
-    const loadContract = async () => {
-      if (web3) {
-        const networkId = await web3.eth.net.getId();
-        console.log(networkId);
-        const acontract = new web3.eth.Contract(Wallet.abi, WalletAddress,);
-        setContract(acontract);
-        console.log(acontract);
-        //const contractBalance = await acontract.methods.balanceOf(WalletAddress).call() ;
-        console.log("balance is ",await acontract.methods.balanceOf("0xaBCcc5de7dDD9297a35687C89a7fE93075480491").call())
-      }
+      setAmount("");
     };    
-    loadContract();
-  }, [web3]); */
-
-  const handleWithdrawal = async (e) => {
-    e.preventDefault();
-    if (amount === "") {
-      setMessage("Please enter an amount");
-      return;
-    }
-    const amountInWei = web3.utils.toWei(amount, "ether");
-    if (balance >= amount) {
-      await daiContract.withdraw(amountInWei);
-      setBalance((prevBalance) => prevBalance - Number(amount));
-      setMessage("Withdrawal successful!");
-    } else {
-      setMessage("Insufficient balance!");
-    }
-    setAmount("");
-  };
-
-
   return (
     <div className="App">
       <div className="container">
