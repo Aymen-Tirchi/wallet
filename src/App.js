@@ -7,7 +7,6 @@ function App() {
   const [totalBalance, setTotalBalance] = useState(0);
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
-  const [web3] = useState(null);
   // eslint-disable-next-line no-empty-pattern
   const [] = useState(null);
   // eslint-disable-next-line no-empty-pattern
